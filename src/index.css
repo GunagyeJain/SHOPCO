@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Satoshi";
+  src: url(../public/fonts/Satoshi/Satoshi-Regular.otf);
+}
+
+@font-face {
+  font-family: "Integral-CF";
+  src: url(../public/fonts/Integral-CF/Fontspring-DEMO-integralcf-regular.otf);
+}
+
+:root {
+  --text: #000;
+  --bg: #fff;
+  --surface: #f0eeed;
+  --border: #0000001a;
+
+  --font-body: "Satoshi", sans-serif;
+  --font-heading: "Integral-CF", sans-serif;
+
+  color: var(--text);
+  background: var(--bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @media (max-width: 1024px) {
+    font-size: 16px;
+  }
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-body);
+}
+
+#root {
+  box-sizing: border-box;
+}
