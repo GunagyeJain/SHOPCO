@@ -2,41 +2,46 @@
 
 @font-face {
   font-family: "Satoshi";
-  src: url(../public/fonts/Satoshi/Satoshi-Regular.otf);
+  src: url(/fonts/Satoshi/Satoshi-Regular.otf) format("opentype");
+  font-display: swap;
 }
 
 @font-face {
   font-family: "Integral-CF";
-  src: url(../public/fonts/Integral-CF/Fontspring-DEMO-integralcf-regular.otf);
+  src: url(/fonts/Integral-CF/Fontspring-DEMO-integralcf-regular.otf)
+    format("opentype");
+  font-display: swap;
 }
 
-:root {
-  --text: #000;
-  --bg: #fff;
-  --surface: #f0eeed;
-  --border: #0000001a;
-
+@theme {
   --font-body: "Satoshi", sans-serif;
   --font-heading: "Integral-CF", sans-serif;
 
+  --container-width: 1240px;
+
+  --color-surface: #f0eeed;
+  --color-text: #000;
+  --color-bg: #fff;
+  --color-border: #0000001a;
+}
+
+html {
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 body {
   padding: 0;
   margin: 0;
-  font-family: var(--font-body);
+  font-family: "Satoshi", sans-serif;
 }
 
-#root {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
