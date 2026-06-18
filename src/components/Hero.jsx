@@ -2,11 +2,11 @@ import heroImage from "../assets/hero.jpg";
 
 const Hero = () => {
   return (
-    <section className="bg-surface overflow-hidden">
+    <section className="bg-surface h-[853px] overflow-hidden md:h-[663px]">
       <div className="mx-auto max-w-[var(--container-width)] px-4 md:px-0">
-        <div className="grid md:grid-cols-2">
+        <div className="grid items-stretch md:grid-cols-2">
           {/* content */}
-          <div className="flex flex-col justify-center py-10 md:py-16">
+          <div className="flex max-h-170 flex-col justify-center py-10 md:py-6">
             <h1 className="font-heading text-[2.25rem] leading-none md:text-[4rem]">
               FIND CLOTHES
               <br />
@@ -51,12 +51,12 @@ const Hero = () => {
           </div>
 
           {/* Image */}
-          <div className="relative flex items-end justify-center">
+          <div className="relative translate-y-[-100px] scale-70 overflow-hidden md:min-h-[450px] md:translate-y-0 md:scale-100">
             <img
               src={heroImage}
               alt="hero image"
-              className="w-full max-w-[500px] md:max-w-none"
-            />
+              className="h-full w-full object-cover object-center"
+            />{" "}
           </div>
         </div>
       </div>

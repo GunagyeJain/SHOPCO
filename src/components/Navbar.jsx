@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 const Navbar = () => {
   return (
-    <div className="mx-auto flex h-[100px] w-full max-w-[var(--container-width)] items-center justify-between gap-7 px-10">
+    <div className="mx-auto flex h-[100px] w-full max-w-[var(--container-width)] items-center justify-between gap-7 px-7">
       {/* hamburger */}
       {/* logo */}
       <div className="flex items-center justify-center gap-2">
