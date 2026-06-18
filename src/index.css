@@ -19,7 +19,7 @@
 
   --container-width: 1240px;
 
-  --color-surface: #f0eeed;
+  --color-surface: #f2f0f1;
   --color-text: #000;
   --color-bg: #fff;
   --color-border: #0000001a;
@@ -32,6 +32,7 @@ html {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: none;
 }
 
 body {

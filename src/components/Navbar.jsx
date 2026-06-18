@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 const Navbar = () => {
   return (
     <div className="mx-auto flex h-[100px] w-full max-w-[var(--container-width)] items-center justify-between gap-7 px-10">
@@ -5,12 +6,14 @@ const Navbar = () => {
       {/* logo */}
       <div className="flex items-center justify-center gap-2">
         <div>☰</div>
-        <h1 className="font-heading text-3xl leading-none font-bold">
-          SHOPCOP
-        </h1>
+        <Link to="/">
+          <h1 className="font-heading text-3xl leading-none font-bold">
+            SHOPCOP
+          </h1>
+        </Link>
       </div>
       {/* navlinks */}
-      <ul className="flex items-center justify-between gap-7">
+      <ul className="hidden items-center justify-between gap-7 md:flex">
         <li>
           <a href="#shop">Shop</a>
         </li>
@@ -25,17 +28,20 @@ const Navbar = () => {
         </li>
       </ul>
       {/* searchbar */}
-      <div className="bg-surface flex grow items-center justify-center gap-2 rounded-2xl p-2">
+      <div className="bg-surface flex hidden grow items-center justify-center gap-2 rounded-2xl p-2 md:flex">
         🔍
         <input type="text" className="grow outline-0" />
       </div>
       {/* cta */}
       <ul className="flex items-center justify-center gap-3">
-        <li>
-          <a href="#cart">🛒</a>
+        <li className="md:hidden">
+          <Link to="/search">🔍</Link>
         </li>
         <li>
-          <a href="#profile">👨🏻</a>
+          <Link to="/cart">🛒</Link>
+        </li>
+        <li>
+          <Link to="/profile">👨🏻</Link>
         </li>
       </ul>
     </div>
