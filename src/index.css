@@ -5,6 +5,11 @@
   src: url(/fonts/Satoshi/Satoshi-Regular.otf) format("opentype");
   font-display: swap;
 }
+@font-face {
+  font-family: "Satoshi";
+  src: url(/fonts/Satoshi/Satoshi-Bold.otf) format("opentype");
+  font-display: swap;
+}
 
 @font-face {
   font-family: "Integral-CF";
