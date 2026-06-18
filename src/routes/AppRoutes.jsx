@@ -3,7 +3,7 @@ import Home from "../pages/Home";
 import ProductDetail from "../pages/ProductDetail";
 import Category from "../pages/Category";
 import Cart from "../pages/Cart";
-
+import NotFound from "../pages/NotFound";
 const AppRoutes = () => {
   return (
     <div>
@@ -17,6 +17,8 @@ const AppRoutes = () => {
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
         </Route> */}
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
