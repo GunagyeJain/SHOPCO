@@ -1,6 +1,7 @@
 import { Star, StarHalf } from "lucide-react";
+import { Link } from "lucide-react";
 
-const ProductCard = ({ image, name, stars, price }) => {
+const ProductCard = ({ id, image, name, stars, price }) => {
   const calculateStars = (stars) => {
     const fullStars = Math.floor(stars);
     const hasHalfStar = stars % 1 !== 0;
@@ -12,7 +13,7 @@ const ProductCard = ({ image, name, stars, price }) => {
   const { fullStars, hasHalfStar, emptyStars } = calculateStars(stars);
 
   return (
-    <div className="w-[250px]">
+    <Link to={`/product/${id}`} className="block w-62.5">
       {/* Image */}
       <div className="bg-surface overflow-hidden rounded-[20px]">
         <img
@@ -23,7 +24,7 @@ const ProductCard = ({ image, name, stars, price }) => {
       </div>
 
       {/* Name */}
-      <h3 className="mt-4 text-xl font-[700]">{name}</h3>
+      <h3 className="mt-4 text-xl font-bold">{name}</h3>
 
       {/* Rating */}
       <div className="mt-2 flex items-center gap-2">
@@ -57,7 +58,7 @@ const ProductCard = ({ image, name, stars, price }) => {
       <div className="mt-3">
         <span className="text-3xl font-bold">${price}</span>
       </div>
-    </div>
+    </Link>
   );
 };
 
