@@ -1,5 +1,11 @@
 import { Link } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../features/auth/authSlice";
+
 const Navbar = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
   return (
     <div className="mx-auto flex h-[100px] w-full max-w-[var(--container-width)] items-center justify-between gap-7 px-7">
       {/* hamburger */}
@@ -8,7 +14,7 @@ const Navbar = () => {
         <div>☰</div>
         <Link to="/">
           <h1 className="font-heading text-3xl leading-none font-bold">
-            SHOPCOP
+            SHOPCO
           </h1>
         </Link>
       </div>
@@ -40,9 +46,17 @@ const Navbar = () => {
         <li>
           <Link to="/cart">🛒</Link>
         </li>
-        <li>
-          <Link to="/profile">👨🏻</Link>
-        </li>
+        {user ? (
+          <li>
+            <button onClick={() => dispatch(signOut())} title={user.email}>
+              🚪
+            </button>
+          </li>
+        ) : (
+          <li>
+            <Link to="/profile">👨🏻</Link>
+          </li>
+        )}
       </ul>
     </div>
   );
