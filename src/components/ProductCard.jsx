@@ -1,5 +1,5 @@
 import { Star, StarHalf } from "lucide-react";
-import { Link } from "lucide-react";
+import { Link } from "react-router";
 
 const ProductCard = ({ id, image, name, stars, price }) => {
   const calculateStars = (stars) => {
@@ -13,18 +13,18 @@ const ProductCard = ({ id, image, name, stars, price }) => {
   const { fullStars, hasHalfStar, emptyStars } = calculateStars(stars);
 
   return (
-    <Link to={`/product/${id}`} className="block w-62.5">
+    <Link to={`/product/${id}`} className="block w-[250px]">
       {/* Image */}
       <div className="bg-surface overflow-hidden rounded-[20px]">
         <img
           src={image}
-          alt="T-shirt with Tape Details"
+          alt={name}
           className="aspect-square w-full object-cover"
         />
       </div>
 
       {/* Name */}
-      <h3 className="mt-4 text-xl font-bold">{name}</h3>
+      <h3 className="mt-4 text-xl font-[700]">{name}</h3>
 
       {/* Rating */}
       <div className="mt-2 flex items-center gap-2">
