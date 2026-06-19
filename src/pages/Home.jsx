@@ -10,19 +10,11 @@ import topsellingProductImage1 from "../assets/top-selling-1.png";
 import topsellingProductImage2 from "../assets/top-selling-2.png";
 import topsellingProductImage3 from "../assets/top-selling-3.png";
 import topsellingProductImage4 from "../assets/top-selling-4.png";
-import { useEffect, useState } from "react";
+
+import useFetchProduct from "../hooks/useFetchProduct";
 
 const Home = () => {
-  const [products, setProducts] = useState([]);
-
-  useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setProducts(data);
-        console.log(data);
-      });
-  }, []);
+  const products = useFetchProduct();
 
   // const newArrivalsData = [
   //   {
