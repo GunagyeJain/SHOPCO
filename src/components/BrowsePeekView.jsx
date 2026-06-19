@@ -10,6 +10,7 @@ const BrowsePeekView = ({ title, data }) => {
             return (
               <ProductCard
                 key={product.id}
+                id={product.id}
                 image={product.image}
                 name={product.title}
                 stars={product.rating.rate}

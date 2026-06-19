@@ -46,6 +46,10 @@ body {
   font-family: "Satoshi", sans-serif;
 }
 
+button {
+  cursor: pointer;
+}
+
 *,
 *::before,
 *::after {
