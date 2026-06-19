@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router";
 import Layout from "../layout/Layout";
+import ProtectedRoute from "../components/ProtectedRoute";
 import Home from "../pages/Home";
 import ProductDetail from "../pages/ProductDetail";
 import Category from "../pages/Category";
@@ -17,7 +18,12 @@ const AppRoutes = () => {
           <Route path="/category" element={<Category />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/profile" element={<Profile />} />
+
+          <Route element={<ProtectedRoute />}>
+            <Route path="/cart" element={<Cart />} />
+          </Route>
         </Route>
+
         {/* <Route element={<AuthLayout />}>
 
           <Route path="login" element={<Login />} />
