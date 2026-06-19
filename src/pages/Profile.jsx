@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { signIn, signUp, clearError } from "../features/auth/authSlice";
 
 const Profile = () => {
   const [mode, setMode] = useState("login"); // "login" | "signup"
@@ -11,37 +14,63 @@ const Profile = () => {
   });
   const [errors, setErrors] = useState({});
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // READ from the store
+  const { user, status, error } = useSelector((state) => state.auth);
+  const isLoading = status === "loading";
+
+  // If already logged in (or right after a successful auth), leave this page
+  useEffect(() => {
+    if (user) navigate("/");
+  }, [user, navigate]);
+
+  // Clear any server error when switching tabs
+  useEffect(() => {
+    dispatch(clearError());
+  }, [mode, dispatch]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
-    // clear the error for a field as soon as the user types in it
     setErrors((prev) => ({ ...prev, [name]: false }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // --- our own client-side empty checks (the red fill) ---
     const newErrors = {};
     if (!form.email.trim()) newErrors.email = true;
     if (!form.password.trim()) newErrors.password = true;
     if (!isLogin && !form.confirmPassword.trim())
       newErrors.confirmPassword = true;
-
+    if (!isLogin && form.password !== form.confirmPassword) {
+      newErrors.confirmPassword = true;
+    }
     setErrors(newErrors);
-
-    // stop if any field is empty
     if (Object.keys(newErrors).length > 0) return;
 
-    // hook up your auth logic here
-    console.log(`${mode} submitted`, form);
+    // --- dispatch the right thunk and wait for the result ---
+    const action = isLogin
+      ? signIn({ email: form.email, password: form.password })
+      : signUp({ email: form.email, password: form.password });
+
+    const result = await dispatch(action);
+
+    // .match() tells us if it ended in fulfilled. Navigation is also handled
+    // by the useEffect above once `user` is set, but this is explicit.
+    if (signIn.fulfilled.match(result) || signUp.fulfilled.match(result)) {
+      navigate("/");
+    }
   };
 
   const switchMode = (next) => {
     setMode(next);
-    setErrors({}); // reset errors when switching tabs
+    setErrors({});
   };
 
-  // shared input classes + conditional red fill when that field has an error
   const inputClass = (field) =>
     `w-full rounded-full px-6 py-4 outline-none transition-colors ${
       errors[field]
@@ -52,7 +81,6 @@ const Profile = () => {
   return (
     <div className="flex min-h-[80vh] items-center justify-center px-4">
       <div className="border-border w-full max-w-[450px] rounded-3xl border bg-white p-8 shadow-sm md:p-10">
-        {/* Title */}
         <h1 className="font-heading text-center text-3xl md:text-4xl">
           {isLogin ? "LOGIN" : "SIGN UP"}
         </h1>
@@ -79,11 +107,17 @@ const Profile = () => {
           </button>
         </div>
 
-        {/* Form */}
+        {/* Server error from Supabase */}
+        {error && (
+          <p className="mt-4 rounded-2xl bg-red-100 px-4 py-3 text-sm text-red-500">
+            {error}
+          </p>
+        )}
+
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="mt-8 flex flex-col gap-4"
+          className="mt-6 flex flex-col gap-4"
         >
           <input
             type="email"
@@ -93,7 +127,6 @@ const Profile = () => {
             placeholder="Email Address"
             className={inputClass("email")}
           />
-
           <input
             type="password"
             name="password"
@@ -102,8 +135,6 @@ const Profile = () => {
             placeholder="Password"
             className={inputClass("password")}
           />
-
-          {/* Confirm password — only on signup */}
           {!isLogin && (
             <input
               type="password"
@@ -114,8 +145,6 @@ const Profile = () => {
               className={inputClass("confirmPassword")}
             />
           )}
-
-          {/* Forgot password — only on login */}
           {isLogin && (
             <a href="#forgot" className="text-sm text-black/60 underline">
               Forgot password?
@@ -124,13 +153,13 @@ const Profile = () => {
 
           <button
             type="submit"
-            className="mt-2 w-full rounded-full bg-black py-4 text-white transition-opacity hover:opacity-90"
+            disabled={isLoading}
+            className="mt-2 w-full rounded-full bg-black py-4 text-white transition-opacity hover:opacity-90 disabled:opacity-50"
           >
-            {isLogin ? "Login" : "Sign Up"}
+            {isLoading ? "Please wait..." : isLogin ? "Login" : "Sign Up"}
           </button>
         </form>
 
-        {/* Footer link */}
         <p className="mt-6 text-center text-sm text-black/60">
           {isLogin ? "Not a member? " : "Already have an account? "}
           <button
